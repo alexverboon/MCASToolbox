@@ -1,11 +1,29 @@
 <#
 .Synopsis
-   Connect-MCASApi
+    Connect-MCASApi
+
 .DESCRIPTION
-   Connect-MCASAPI connects with Microsoft Cloud App Security
+    Connect-MCASAPI imports a set of credentials into your session (or, optionally, a variable) to be used by other
+    Cloud App Security Toolbox functions.
+
+    When using Connect-MCASApi you will need to provide your Cloud App Security tenant URL as well as an OAuth
+    Token that must be created manually in the console.
+
+    Connect-MCASApi takes the tenant URL and OAuth token and stores them in a special global session variable
+    called $CASCredential and converts the OAuth token to a 64-bit secure string while in memory.
+
+    All MCAS Toolbox functions reference that special global variable to pass requests to your Cloud App Security tenant.
+
+.PARAMETER MCASToken
+    The tenant OAuth token generated within the MCAS portal
+
+.PARAMETER MCASUrl
+    Specifies the portal URL of your MCAS tenant, for example 'contoso.portal.cloudappsecurity.com'.
+   
+
 .EXAMPLE
-    $mcastoken = "YOUR TOKEN"
-    $mcasurl = "eCorp.eu2.portal.cloudappsecurity.com"
+    $mcastoken = 432c1750f80d66a1cf2849afb6b10a7fcdf6738f5f554e32c9915fb006bd799a"
+    $mcasurl = "contoso.portal.cloudappsecurity.com"
     .\Connect-MCASApi.ps1 -MCASToken $MCASToken -MCASUrl $mcasurl
 #>
     [CmdletBinding()]
@@ -32,7 +50,7 @@
     {
         $User=$MCASUrl
         $PWord=ConvertTo-SecureString -String "$MCASToken" -AsPlainText -Force
-	[System.Management.Automation.PSCredential]$Global:CASCredential=New-Object -TypeName System.Management.Automation.PSCredential -argumentList $User, $PWord
+	    [System.Management.Automation.PSCredential]$Global:CASCredential=New-Object -TypeName System.Management.Automation.PSCredential -argumentList $User, $PWord
 
         Try{
             $Conf=Get-MCASConfiguration -Credential $CASCredential -ErrorAction Stop
