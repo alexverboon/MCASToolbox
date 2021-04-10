@@ -11,13 +11,13 @@ This repository contains scripts for managing Microsoft Cloud App Security.
 1. First you must register an API token within the Microsoft Cloud App Security Console.
 You find instructions for this here [Managing API tokens](https://docs.microsoft.com/en-us/cloud-app-security/api-authentication)
 
-2. The MCAS Toolbox functions have a dependency on the MCAS PowerShell module.
+2. The MCAS Toolbox functions have a dependency on the MCAS PowerShell module
 
 ```powershell
 Install-Module -Name "MCAS" -Scope CurrentUser
-```powershell
+```
 
-2. Before you can run the MCAS Toolbox functions you must first connect with MCAS
+3. Before you can run the MCAS Toolbox functions you must first connect with MCAS
 
 ```powershell
     $mcastoken = "<YOUR TOKEN GOES HERE>"
